@@ -4,138 +4,320 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>错题本</title>
+<meta name="description" content="公考错题记录与规律总结工具">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeDropShadow dx='0' dy='1.5' stdDeviation='1' flood-color='%23047857' flood-opacity='0.3'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23bgGrad)'/%3E%3Cg filter='url(%23shadow)'%3E%3Crect x='8' y='5' width='17' height='22' rx='2' fill='%23FFFFFF'/%3E%3Cline x1='11.5' y1='5' x2='11.5' y2='27' stroke='%23F1F5F9' stroke-width='1'/%3E%3Crect x='6' y='8' width='4' height='2' rx='0.75' fill='%2394A3B8'/%3E%3Crect x='6.5' y='8.5' width='3' height='1' rx='0.5' fill='%23CBD5E1'/%3E%3Crect x='6' y='14' width='4' height='2' rx='0.75' fill='%2394A3B8'/%3E%3Crect x='6.5' y='14.5' width='3' height='1' rx='0.5' fill='%23CBD5E1'/%3E%3Crect x='6' y='20' width='4' height='2' rx='0.75' fill='%2394A3B8'/%3E%3Crect x='6.5' y='20.5' width='3' height='1' rx='0.5' fill='%23CBD5E1'/%3E%3Cline x1='13.5' y1='9.5' x2='21.5' y2='9.5' stroke='%23E2E8F0' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='13.5' x2='22.5' y2='13.5' stroke='%23E2E8F0' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='17.5' x2='22.5' y2='17.5' stroke='%23E2E8F0' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='21.5' x2='17.5' y2='21.5' stroke='%23E2E8F0' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M19 20.5l2 2 4-4' fill='none' stroke='%2310B981' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #F7F6F3;
-  --surface: #FFFFFF;
-  --surface2: #F1EFE9;
-  --border: rgba(0,0,0,0.08);
-  --border-md: rgba(0,0,0,0.13);
-  --text-primary: #1A1916;
-  --text-secondary: #5A5853;
-  --text-tertiary: #9B9890;
-  --purple-bg: #EEEDFE;
-  --purple-text: #3C3489;
-  --purple-border: #C4BFED;
-  --blue-bg: #E6F1FB;
-  --blue-text: #0C447C;
-  --green-bg: #E1F5EE;
-  --green-text: #085041;
-  --amber-bg: #FAEEDA;
-  --amber-text: #633806;
+  --bg: #f8fafc;
+  --bg-subtle: #f1f5f9;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: rgba(15, 23, 42, 0.06);
+  --border-md: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.12);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-faint: #94a3b8;
+
+  --accent: #10b981;
+  --accent-soft: rgba(16, 185, 129, 0.08);
+  --accent-medium: rgba(16, 185, 129, 0.16);
+  --accent-text: #047857;
+  --accent-dim: #065f46;
+
+  /* Type colors - refined for light mode */
+  --violet-bg: rgba(139, 92, 246, 0.08);
+  --violet-text: #6d28d9;
+  --violet-border: rgba(139, 92, 246, 0.15);
+  --violet-dot: #8b5cf6;
+
+  --blue-bg: rgba(59, 130, 246, 0.08);
+  --blue-text: #1d4ed8;
+  --blue-border: rgba(59, 130, 246, 0.15);
+  --blue-dot: #3b82f6;
+
+  --teal-bg: rgba(20, 184, 166, 0.08);
+  --teal-text: #0f766e;
+  --teal-border: rgba(20, 184, 166, 0.15);
+  --teal-dot: #14b8a6;
+
+  --amber-bg: rgba(245, 158, 11, 0.08);
+  --amber-text: #b45309;
+  --amber-border: rgba(245, 158, 11, 0.15);
+  --amber-dot: #f59e0b;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-pill: 100px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.02);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.05);
+
+  /* Typography Scale */
+  --font-xs: 12px;
+  --font-sm: 13px;
+  --font-base: 15px;
+  --font-md: 16px;
+  --font-lg: 18px;
+  --font-xl: 20px;
+  --font-2xl: 36px;
 }
 
 body {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
   background: var(--bg);
   color: var(--text-primary);
-  min-height: 100vh;
-  padding: 24px 16px 48px;
+  min-height: 100dvh;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── App Shell ── */
 .app {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
   gap: 0;
   align-items: flex-start;
-  padding: 0 24px;
+  min-height: 100dvh;
 }
 
+/* ── Sidebar ── */
 .sidebar {
-  width: 260px;
+  width: 280px;
   flex-shrink: 0;
   position: sticky;
-  top: 24px;
-  padding: 24px 0 48px;
+  top: 0;
+  height: 100dvh;
+  padding: 28px 20px 28px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-hover) transparent;
 }
 
-.main-content {
-  flex: 1;
-  min-width: 0;
-  padding: 24px 0 48px 24px;
-}
-
-
-/* Header */
+/* ── Page Header ── */
 .page-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
 }
-
-.header-actions {
-  margin-left: auto;
-  display: flex;
-  gap: 6px;
-}
-.icon-btn {
-  width: 36px; height: 36px;
-  border-radius: var(--radius-sm);
-  border: 0.5px solid var(--border-md);
-  background: var(--surface);
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--text-secondary);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.icon-btn:hover { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple-border); }
-
 .page-icon {
-  width: 40px; height: 40px;
-  background: var(--purple-bg);
+  width: 44px;
+  height: 44px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(16,185,129,0.15);
   border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-xl);
+  flex-shrink: 0;
 }
-.page-title { font-size: 20px; font-weight: 600; color: var(--text-primary); }
-.page-sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+.page-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.page-sub {
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+}
 
-/* Stats */
+/* ── Stats ── */
 .stats-row {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 .stat-card {
   background: var(--surface);
   border-radius: var(--radius-md);
-  border: 0.5px solid var(--border);
-  padding: 14px 14px 12px;
+  border: 1px solid var(--border);
+  padding: 14px 16px 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.stat-card:hover {
+  border-color: var(--border-md);
+  background: var(--surface-elevated);
 }
 .stat-label {
-  font-size: 13px;
+  font-size: var(--font-xs);
   color: var(--text-tertiary);
   margin-bottom: 6px;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 .stat-val {
-  font-size: 36px;
-  font-weight: 600;
+  font-size: var(--font-2xl);
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-val .stat-unit {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: 2px;
 }
 .stat-val-sm {
-  font-size: 13px;
+  font-size: var(--font-base);
   font-weight: 600;
-  color: var(--text-primary);
-  padding-top: 4px;
+  color: var(--accent-text);
+  padding-top: 2px;
   line-height: 1.4;
 }
+.stats-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
 
-/* Week nav */
+/* ── Section Labels ── */
+.section-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 2px 0;
+}
+
+/* ── Filter Chips ── */
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.filter-chip {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-base);
+  font-family: inherit;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.filter-chip:hover:not(.active) {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+.filter-chip.active {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 500;
+}
+
+.chip-count {
+  font-size: var(--font-xs);
+  color: var(--text-faint);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 18px;
+  text-align: right;
+}
+.filter-chip.active .chip-count {
+  color: var(--accent-dim);
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Sidebar Actions ── */
+.sidebar-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-btn {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-base);
+  font-family: inherit;
+  border: 1px solid var(--border-md);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+.sidebar-btn:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+.sidebar-btn.primary {
+  background: var(--accent-soft);
+  border-color: rgba(16,185,129,0.18);
+  color: var(--accent-text);
+  font-weight: 500;
+}
+.sidebar-btn.primary:hover {
+  background: var(--accent-medium);
+  border-color: rgba(16,185,129,0.30);
+}
+.sidebar-btn.primary:active {
+  transform: scale(0.98);
+}
+.sidebar-btn-icon {
+  font-size: var(--font-md);
+  line-height: 1;
+}
+.sidebar-btn .kbd {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  background: rgba(15, 23, 42, 0.04);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: system-ui, monospace;
+  margin-left: auto;
+}
+
+/* ── Main Content ── */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 24px 48px 28px;
+}
+
+/* ── Week Nav ── */
 .week-nav {
   position: sticky;
   top: 0;
@@ -143,124 +325,135 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 14px;
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 8px 12px;
+  margin-bottom: 16px;
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
 }
 .week-label {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-md);
+  font-weight: 600;
   color: var(--text-primary);
   flex: 1;
   text-align: center;
+  letter-spacing: -0.01em;
 }
 .nav-btn {
-  background: none;
-  border: 0.5px solid var(--border-md);
-  border-radius: 6px;
-  padding: 4px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-  transition: background 0.15s;
-}
-.nav-btn:hover { background: var(--surface2); }
-
-/* Filters */
-.filter-row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.filter-chip {
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-family: inherit;
-  border: 0.5px solid var(--border-md);
   background: var(--surface);
+  border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  font-size: var(--font-lg);
   color: var(--text-secondary);
-  transition: all 0.15s;
-  justify-content: space-between;  /* 左边名字，右边数量 */
-  display: flex;  
-  align-items: center; 
+  transition: all 0.15s ease;
 }
-.filter-chip.active {
-  background: var(--purple-bg);
-  color: var(--purple-text);
-  border-color: var(--purple-border);
-  font-weight: 500;
+.nav-btn:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
-.filter-chip:hover:not(.active) { background: var(--surface2); }
-
-.chip-count {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  background: var(--surface2);
-  border-radius: 10px;
-  padding: 1px 7px;
-  font-weight: 500;
+.nav-btn:active {
+  transform: scale(0.95);
 }
 
-/* Entry cards */
+/* ── Entry Cards ── */
 .entry-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 14px;
 }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .entry-card {
   background: var(--surface);
-  border: 0.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: box-shadow 0.15s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  animation: cardIn 0.35s ease both;
 }
-.entry-card:hover { box-shadow:  0 4px 20px rgba(0,0,0,0.10) }
+.entry-card:hover {
+  border-color: var(--border-md);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
 .entry-card-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px 9px;
-  border-bottom: 0.5px solid var(--border);
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
 }
+
 .type-dot {
-  width: 7px; height: 7px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.dot-yanyu { background: #7F77DD; }
-.dot-shuliang { background: #378ADD; }
-.dot-panduan { background: #1D9E75; }
-.dot-zicheng { background: #BA7517; }
+.dot-yanyu { background: var(--violet-dot); box-shadow: 0 0 6px rgba(139,92,246,0.3); }
+.dot-shuliang { background: var(--blue-dot); box-shadow: 0 0 6px rgba(59,130,246,0.3); }
+.dot-panduan { background: var(--teal-dot); box-shadow: 0 0 6px rgba(20,184,166,0.3); }
+.dot-zicheng { background: var(--amber-dot); box-shadow: 0 0 6px rgba(245,158,11,0.3); }
 
 .type-badge {
-  font-size: 11px;
-  padding: 3px 9px;
-  border-radius: 20px;
+  font-size: var(--font-xs);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
-.tb-yanyu { background: var(--purple-bg); color: var(--purple-text); }
+.tb-yanyu { background: var(--violet-bg); color: var(--violet-text); }
 .tb-shuliang { background: var(--blue-bg); color: var(--blue-text); }
-.tb-panduan { background: var(--green-bg); color: var(--green-text); }
+.tb-panduan { background: var(--teal-bg); color: var(--teal-text); }
 .tb-zicheng { background: var(--amber-bg); color: var(--amber-text); }
 
-.entry-date { font-size: 11px; color: var(--text-tertiary); margin-left: auto; }
+.subtype-badge {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  background: rgba(15, 23, 42, 0.04);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+}
+
+.entry-date {
+  font-size: var(--font-xs);
+  color: var(--text-faint);
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
 .entry-del {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-tertiary);
-  font-size: 16px;
-  padding: 0 0 0 8px;
+  color: var(--text-faint);
+  font-size: var(--font-md);
+  padding: 4px;
   line-height: 1;
-  transition: color 0.15s;
+  border-radius: 4px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.entry-del:hover { color: #A32D2D; }
+.entry-del:hover {
+  color: #f87171;
+  background: rgba(248,113,113,0.10);
+}
 
 .entry-body {
   display: grid;
@@ -268,267 +461,516 @@ body {
   gap: 0;
 }
 .entry-section {
-  padding: 11px 14px 13px;
+  padding: 12px 16px 14px;
 }
 .entry-section:first-child {
-  border-right: 0.5px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 .entry-section-label {
-  font-size: 10px;
+  font-size: var(--font-xs);
   font-weight: 600;
-  color: var(--text-tertiary);
-  letter-spacing: 0.6px;
-  margin-bottom: 5px;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 .entry-section-val {
-  font-size: 13px;
+  font-size: var(--font-base);
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .entry-section-val.rule {
-  color: var(--purple-text);
+  color: var(--accent-text);
   font-weight: 500;
 }
 
-/* Empty */
+/* ── Empty State ── */
 .empty-state {
   text-align: center;
-  padding: 40px 16px;
-  color: var(--text-tertiary);
-  font-size: 13px;
+  padding: 60px 20px;
+  color: var(--text-faint);
+  font-size: var(--font-base);
 }
-.empty-icon { font-size: 28px; margin-bottom: 10px; }
-
-/* Add button */
-.add-btn {
-  width: 100%;
-  border: 1.5px dashed var(--border-md);
+.empty-icon {
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
-  padding: 14px;
-  background: none;
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text-tertiary);
+  background: var(--surface);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  transition: all 0.15s;
+  margin: 0 auto 14px;
+  font-size: var(--font-xl);
 }
-.add-btn:hover {
-  background: var(--surface);
-  color: var(--text-secondary);
-  border-color: var(--purple-border);
+.empty-text {
+  color: var(--text-tertiary);
+  line-height: 1.5;
 }
 
-.export-btn {
-  width: 100%;
-  border: 0.5px solid var(--border-md);
-  border-radius: var(--radius-md);
-  padding: 11px;
-  background: var(--surface);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  margin-top: 8px;
-  transition: all 0.15s;
-}
-.export-btn:hover { background: var(--surface2); }
-
-.add-btn-icon { font-size: 16px; }
-
-/* Modal */
+/* ── Modal ── */
 .modal-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 100;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
-.modal-backdrop.open { display: flex; }
+.modal-backdrop.open {
+  display: flex;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 .modal {
-  background: var(--surface);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-md);
   border-radius: var(--radius-lg);
-  padding: 20px 22px 22px;
+  padding: 24px;
   width: 100%;
-  max-width: 620px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  max-width: 600px;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 0.25s ease both;
 }
 .modal-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.modal-title { font-size: 15px; font-weight: 600; }
+.modal-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(16,185,129,0.15);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-lg);
+  flex-shrink: 0;
+}
+.modal-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.modal-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  font-size: var(--font-xl);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover {
+  color: var(--text-secondary);
+  background: rgba(15, 23, 42, 0.05);
+}
 
+.form-group { margin-bottom: 16px; }
+.form-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  display: block;
+  letter-spacing: 0.02em;
+}
+.form-label .optional {
+  color: var(--text-faint);
+  font-weight: 400;
+}
 .form-row-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
-.form-row-2col .form-group {
-  margin-bottom: 0;
-}
+.form-row-2col .form-group { margin-bottom: 0; }
 
-.form-group { margin-bottom: 14px; }
-.form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 7px;
-  display: block;
-}
+/* Type Selector */
 .type-selector {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
 }
 .type-opt {
-  padding: 8px 10px;
+  padding: 10px 12px;
   border-radius: var(--radius-sm);
-  border: 0.5px solid var(--border-md);
-  background: var(--bg);
+  border: 1px solid var(--border-md);
+  background: var(--surface);
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--font-base);
   font-family: inherit;
   color: var(--text-secondary);
   text-align: left;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
 }
 .type-opt.selected {
-  border-color: var(--purple-border);
-  background: var(--purple-bg);
-  color: var(--purple-text);
+  border-color: rgba(16,185,129,0.25);
+  background: var(--accent-soft);
+  color: var(--accent-text);
   font-weight: 500;
 }
-.type-opt:hover:not(.selected) { background: var(--surface2); }
-.type-dot-sm { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.type-opt:hover:not(.selected) {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+.type-opt:active {
+  transform: scale(0.98);
+}
+.type-dot-sm {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
-textarea {
+/* Inputs */
+input[type="text"], textarea {
   width: 100%;
-  font-size: 13px;
+  font-size: var(--font-base);
   font-family: inherit;
-  border: 0.5px solid var(--border-md);
+  border: 1px solid var(--border-md);
   border-radius: var(--radius-sm);
-  padding: 9px 11px;
+  padding: 10px 12px;
   resize: vertical;
-  min-height: 68px;
-  background: var(--bg);
+  background: var(--surface);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   line-height: 1.6;
 }
-textarea:focus { border-color: var(--purple-border); }
-textarea::placeholder { color: var(--text-tertiary); }
+textarea { min-height: 72px; }
+input[type="text"]:focus, textarea:focus {
+  border-color: rgba(16,185,129,0.35);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.08);
+}
+input[type="text"]::placeholder, textarea::placeholder {
+  color: var(--text-faint);
+}
 
+/* Modal Actions */
 .modal-actions {
   display: flex;
   gap: 8px;
-  margin-top: 18px;
-  justify-content: flex-end;
+  margin-top: 20px;
+  align-items: center;
+}
+.modal-hint {
+  font-size: var(--font-xs);
+  color: var(--text-faint);
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.modal-hint kbd {
+  font-size: var(--font-xs);
+  background: rgba(15, 23, 42, 0.04);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: system-ui, monospace;
 }
 .btn-cancel {
-  background: none;
-  border: 0.5px solid var(--border-md);
+  background: var(--surface);
+  border: 1px solid var(--border-md);
   border-radius: var(--radius-sm);
   padding: 8px 18px;
-  font-size: 14px;
+  font-size: var(--font-base);
   font-family: inherit;
   cursor: pointer;
   color: var(--text-secondary);
-  transition: background 0.15s;
+  transition: all 0.15s;
 }
-.btn-cancel:hover { background: var(--surface2); }
+.btn-cancel:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
 .btn-save {
-  background: var(--purple-bg);
-  border: 0.5px solid var(--purple-border);
+  background: var(--accent);
+  border: 1px solid rgba(16,185,129,0.2);
   border-radius: var(--radius-sm);
-  padding: 8px 18px;
-  font-size: 13px;
+  padding: 8px 20px;
+  font-size: var(--font-base);
   font-family: inherit;
   cursor: pointer;
-  color: var(--purple-text);
-  font-weight: 500;
-  transition: background 0.15s;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.15s;
 }
-.btn-save:hover { background: #CECBF6; }
+.btn-save:hover {
+  background: #059669;
+}
+.btn-save:active {
+  transform: scale(0.98);
+}
+
+/* ── Toast ── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(12px); }
+}
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-size: var(--font-base);
+  color: var(--accent-text);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  animation: toastIn 0.25s ease;
+  pointer-events: none;
+}
+.toast.hiding {
+  animation: toastOut 0.2s ease forwards;
+}
+
+/* ── Scrollbar ── */
+.main-content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.main-content::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.main-content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--surface-hover);
+  border-radius: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 16px;
+    gap: 14px;
+  }
+  .stats-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+  .main-content {
+    padding: 16px 16px 48px;
+  }
+  .entry-body {
+    grid-template-columns: 1fr;
+  }
+  .entry-section:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .form-row-2col {
+    grid-template-columns: 1fr;
+  }
+  .modal {
+    max-width: 100%;
+    margin: auto 8px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .entry-card { animation: none; }
+  .modal { animation: none; }
+  .toast { animation: none; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Import Modal Stats ── */
+.import-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.import-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: var(--font-base);
+}
+.import-stat-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.import-stat-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.import-stat-value.highlight {
+  color: var(--accent-text);
+}
+.import-stat-value.warning {
+  color: #f59e0b;
+}
+.import-notice {
+  font-size: var(--font-sm);
+  color: #b45309;
+  line-height: 1.5;
+  padding: 10px 12px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  border-radius: var(--radius-sm);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.import-notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="sidebar">
+  <aside class="sidebar">
     <div class="page-header">
-      <div class="page-icon">📓</div>
+      <div class="page-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" fill="#d1fae5"/><rect x="4" y="2" width="4" height="20" fill="#10b981"/><path d="M16 2v5l1.5-1.2L19 7V2" fill="#059669"/><line x1="11" y1="8" x2="18" y2="8" stroke="#86efac" stroke-width="1.2" stroke-linecap="round"/><line x1="11" y1="11.5" x2="18" y2="11.5" stroke="#86efac" stroke-width="1.2" stroke-linecap="round"/><line x1="11" y1="15" x2="15.5" y2="15" stroke="#86efac" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
       <div>
         <div class="page-title">错题本</div>
         <div class="page-sub">记录错误，总结规律</div>
       </div>
     </div>
+
     <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">本周错题</div>
-        <div class="stat-val" id="stat-week">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">累计错题</div>
-        <div class="stat-val" id="stat-total">0</div>
+      <div class="stats-pair">
+        <div class="stat-card">
+          <div class="stat-label">本周错题</div>
+          <div class="stat-val" id="stat-week">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">累计错题</div>
+          <div class="stat-val" id="stat-total">0</div>
+        </div>
       </div>
       <div class="stat-card">
         <div class="stat-label">最多错题型</div>
-        <div class="stat-val-sm" id="stat-top">—</div>
+        <div class="stat-val-sm" id="stat-top">-</div>
       </div>
-    </div>
-    <div class="filter-row">
-      <button class="filter-chip active" onclick="setFilter(this,'all')">全部<span class="chip-count" id="count-all">0</span></button>
-      <button class="filter-chip" onclick="setFilter(this,'言语理解')">言语理解<span class="chip-count" id="count-yanyu">0</span></button>
-      <button class="filter-chip" onclick="setFilter(this,'数量关系')">数量关系<span class="chip-count" id="count-shuliang">0</span></button>
-      <button class="filter-chip" onclick="setFilter(this,'判断推理')">判断推理<span class="chip-count" id="count-panduan">0</span></button>
-      <button class="filter-chip" onclick="setFilter(this,'资料分析')">资料分析<span class="chip-count" id="count-zicheng">0</span></button>
-    </div>
-    <button class="filter-chip" onclick="openModal()" style="justify-content:center; margin-top:4px;">
-      ＋ 添加错题
-    </button>
-    <button class="filter-chip" onclick="exportData()" style="justify-content:center;">
-      ⬇ 导出数据
-    </button>
-    </div>
-    <div class="main-content">
-    <!-- week-nav 放这里 -->
-     <div class="week-nav">
-      <button class="nav-btn" onclick="changeWeek(-1)" aria-label="上一周">‹</button>
-      <div class="week-label" id="week-label">本周</div>
-      <button class="nav-btn" onclick="changeWeek(1)" aria-label="下一周">›</button>
-      </div>
-      <!-- entry-list 放这里 -->
-      <div class="entry-list" id="entry-list"></div>
     </div>
 
-  
+    <div class="section-label">分类筛选</div>
+    <div class="filter-row">
+      <button class="filter-chip active" onclick="setFilter(this,'all')">
+        全部
+        <span class="chip-count" id="count-all">0</span>
+      </button>
+      <button class="filter-chip" onclick="setFilter(this,'言语理解')">
+        <span style="display:flex;align-items:center;gap:8px;"><span class="chip-dot" style="background:var(--violet-dot)"></span>言语理解</span>
+        <span class="chip-count" id="count-yanyu">0</span>
+      </button>
+      <button class="filter-chip" onclick="setFilter(this,'数量关系')">
+        <span style="display:flex;align-items:center;gap:8px;"><span class="chip-dot" style="background:var(--blue-dot)"></span>数量关系</span>
+        <span class="chip-count" id="count-shuliang">0</span>
+      </button>
+      <button class="filter-chip" onclick="setFilter(this,'判断推理')">
+        <span style="display:flex;align-items:center;gap:8px;"><span class="chip-dot" style="background:var(--teal-dot)"></span>判断推理</span>
+        <span class="chip-count" id="count-panduan">0</span>
+      </button>
+      <button class="filter-chip" onclick="setFilter(this,'资料分析')">
+        <span style="display:flex;align-items:center;gap:8px;"><span class="chip-dot" style="background:var(--amber-dot)"></span>资料分析</span>
+        <span class="chip-count" id="count-zicheng">0</span>
+      </button>
+    </div>
+
+    <div class="sidebar-actions">
+      <button class="sidebar-btn primary" onclick="openModal()" id="add-btn">
+        <span class="sidebar-btn-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><line x1="12" y1="12" x2="12" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><line x1="9" y1="15" x2="15" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        添加错题
+        <span class="kbd">N</span>
+      </button>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <button class="sidebar-btn" onclick="exportData()" id="export-btn" style="padding: 10px 6px;">
+          <span class="sidebar-btn-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="18" height="8" rx="2" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><polyline points="8 8 12 3 16 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          导出数据
+        </button>
+        <button class="sidebar-btn" onclick="triggerImport()" id="import-btn" style="padding: 10px 6px;">
+          <span class="sidebar-btn-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="18" height="8" rx="2" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><polyline points="8 8 12 13 16 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="2" x2="12" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          导入数据
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="week-nav">
+      <button class="nav-btn" onclick="changeWeek(-1)" aria-label="上一周">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M15 5L8 12l7 7" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="week-label" id="week-label">本周</div>
+      <button class="nav-btn" onclick="changeWeek(1)" aria-label="下一周">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="entry-list" id="entry-list"></div>
+  </main>
 </div>
 
 <!-- Modal -->
 <div class="modal-backdrop" id="modal">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="page-icon" style="width:32px;height:32px;font-size:16px;">✏️</div>
+      <div class="modal-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="14" height="19" rx="2" fill="#d1fae5"/><line x1="6" y1="8" x2="12" y2="8" stroke="#86efac" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="11.5" x2="10" y2="11.5" stroke="#86efac" stroke-width="1.2" stroke-linecap="round"/><path d="M18.5 2.5l3 3-8.5 8.5-4 1 1-4 8.5-8.5z" fill="#10b981"/><path d="M16 5l3 3" stroke="#059669" stroke-width="1.2"/></svg>
+      </div>
       <div class="modal-title">记录错题</div>
+      <button class="modal-close" onclick="closeModal()" aria-label="关闭">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.06"/><line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
     </div>
+
     <div class="form-group">
       <div class="form-label">题型分类</div>
       <div class="type-selector">
@@ -546,16 +988,14 @@ textarea::placeholder { color: var(--text-tertiary); }
         </button>
       </div>
     </div>
+
     <div class="form-group">
-      <label class="form-label" for="f-subtype">细化题型 <span style="color:var(--text-tertiary);font-weight:400;">（选填）</span></label>
-      <input id="f-subtype" type="text" placeholder="例：标题填入、逻辑填空、图形推理…"
-        style="width:100%;font-size:13px;font-family:inherit;border:0.5px solid var(--border-md);
-        border-radius:var(--radius-sm);padding:9px 11px;background:var(--bg);color:var(--text-primary);
-        outline:none;transition:border-color 0.15s;"
-        onfocus="this.style.borderColor='var(--purple-border)'"
-        onblur="this.style.borderColor='var(--border-md)'"
-      />
+      <label class="form-label" for="f-subtype">
+        细化题型 <span class="optional">(选填)</span>
+      </label>
+      <input id="f-subtype" type="text" placeholder="例：标题填入、逻辑填空、图形推理...">
     </div>
+
     <div class="form-row-2col">
       <div class="form-group">
         <label class="form-label" for="f-reason">错误原因</label>
@@ -566,12 +1006,42 @@ textarea::placeholder { color: var(--text-tertiary); }
         <textarea id="f-rule" placeholder="例：读题时必须圈出「正确/不正确」再选答案"></textarea>
       </div>
     </div>
+
     <div class="modal-actions">
-      <span style="font-size:11px;color:var(--text-tertiary);margin-right:auto;">
-        Ctrl+Enter 保存 · Esc 关闭
-      </span>
+      <div class="modal-hint">
+        <kbd>Ctrl+Enter</kbd> 保存
+        <kbd>Esc</kbd> 关闭
+      </div>
       <button class="btn-cancel" onclick="closeModal()">取消</button>
       <button class="btn-save" onclick="saveEntry()">保存记录</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import File Input -->
+<input type="file" id="import-file-input" style="display: none;" accept=".json" onchange="handleImport(event)">
+
+<!-- Import Confirmation Modal -->
+<div class="modal-backdrop" id="import-modal">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-icon" style="background: var(--violet-bg); border-color: rgba(139,92,246,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="18" height="8" rx="2" fill="var(--violet-bg)" stroke="var(--violet-text)" stroke-width="1.5"/><polyline points="8 8 12 13 16 8" fill="none" stroke="var(--violet-text)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="2" x2="12" y2="13" stroke="var(--violet-text)" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="modal-title">导入错题数据</div>
+      <button class="modal-close" onclick="closeImportModal()" aria-label="关闭">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.06"/><line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="import-stats" id="import-stats-content">
+      <!-- Filled dynamically by JavaScript -->
+    </div>
+
+    <div class="modal-actions" style="margin-top: 24px;">
+      <button class="btn-cancel" onclick="closeImportModal()">取消</button>
+      <button class="btn-save" id="btn-merge-import" onclick="confirmImport('merge')" style="background: var(--accent); border-color: rgba(16,185,129,0.2);">增量合并 (保留现有)</button>
+      <button class="btn-save" id="btn-replace-import" onclick="confirmImport('replace')" style="background: #ef4444; border-color: rgba(239,68,68,0.2);">完全覆盖</button>
     </div>
   </div>
 </div>
@@ -602,9 +1072,10 @@ function fmtDate(d) {
   return (dt.getMonth()+1) + '/' + dt.getDate();
 }
 function fmtWeekLabel(offset, mon, sun) {
-  if (offset === 0) return '本周（' + fmtDate(mon) + ' — ' + fmtDate(sun) + '）';
-  if (offset === -1) return '上周（' + fmtDate(mon) + ' — ' + fmtDate(sun) + '）';
-  return fmtDate(mon) + ' — ' + fmtDate(sun);
+  const range = fmtDate(mon) + ' \u2013 ' + fmtDate(sun);
+  if (offset === 0) return '\u672C\u5468\uFF08' + range + '\uFF09';
+  if (offset === -1) return '\u4E0A\u5468\uFF08' + range + '\uFF09';
+  return range;
 }
 function typeClass(t) {
   if (t === '言语理解') return 'tb-yanyu';
@@ -619,14 +1090,147 @@ function dotClass(t) {
   return 'dot-zicheng';
 }
 
+function showToast(msg) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => { el.classList.add('hiding'); }, 1800);
+  setTimeout(() => { el.remove(); }, 2100);
+}
+
 function exportData() {
-  if (entries.length === 0) { alert('暂无错题数据'); return; }
+  if (entries.length === 0) { showToast('暂无错题数据'); return; }
   const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = '错题本_' + new Date().toISOString().slice(0,10) + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
+  showToast('已导出 ' + entries.length + ' 条记录');
+}
+
+let parsedImportEntries = [];
+
+function triggerImport() {
+  document.getElementById('import-file-input').click();
+}
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) {
+        showToast('导入失败：数据必须是一个 JSON 数组');
+        event.target.value = '';
+        return;
+      }
+      
+      // Basic validation of fields
+      const isValid = data.every(item => item && typeof item === 'object');
+      if (!isValid && data.length > 0) {
+        showToast('导入失败：JSON 数据格式不正确');
+        event.target.value = '';
+        return;
+      }
+      
+      parsedImportEntries = data;
+      showImportConfirmation(file.name);
+    } catch (err) {
+      showToast('导入失败：非法的 JSON 文件');
+      event.target.value = '';
+    }
+  };
+  reader.readAsText(file);
+}
+
+function showImportConfirmation(fileName) {
+  const total = parsedImportEntries.length;
+  const existingIds = new Set(entries.map(e => e.id));
+  
+  let newCount = 0;
+  let dupCount = 0;
+  
+  parsedImportEntries.forEach(item => {
+    if (item.id && existingIds.has(item.id)) {
+      dupCount++;
+    } else {
+      newCount++;
+    }
+  });
+  
+  const container = document.getElementById('import-stats-content');
+  container.innerHTML = `
+    <div class="import-summary-list">
+      <div class="import-stat-item">
+        <span class="import-stat-label">导入文件名</span>
+        <span class="import-stat-value" style="word-break: break-all; max-width: 60%; text-align: right;">${fileName}</span>
+      </div>
+      <div class="import-stat-item">
+        <span class="import-stat-label">包含错题数</span>
+        <span class="import-stat-value">${total} 条</span>
+      </div>
+      <div class="import-stat-item">
+        <span class="import-stat-label">待新增记录</span>
+        <span class="import-stat-value highlight">${newCount} 条</span>
+      </div>
+      <div class="import-stat-item">
+        <span class="import-stat-label">待更新/重复记录</span>
+        <span class="import-stat-value ${dupCount > 0 ? 'warning' : ''}">${dupCount} 条</span>
+      </div>
+    </div>
+    ${dupCount > 0 ? `
+      <div class="import-notice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/><line x1="12" y1="9" x2="12" y2="13" stroke="#b45309" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1" fill="#b45309"/></svg>
+        <div>有 ${dupCount} 条记录与本地 ID 冲突。你可以选择：【增量合并】会用导入数据更新/覆盖同 ID 的记录；【完全覆盖】则会丢弃本地所有数据。</div>
+      </div>
+    ` : ''}
+  `;
+  
+  document.getElementById('import-modal').classList.add('open');
+}
+
+function closeImportModal() {
+  document.getElementById('import-modal').classList.remove('open');
+  document.getElementById('import-file-input').value = '';
+  parsedImportEntries = [];
+}
+
+function confirmImport(mode) {
+  if (!parsedImportEntries || parsedImportEntries.length === 0) return;
+  
+  if (mode === 'replace') {
+    entries = [...parsedImportEntries];
+  } else if (mode === 'merge') {
+    const entryMap = new Map();
+    // Load current
+    entries.forEach(e => entryMap.set(e.id, e));
+    // Merge new/updates
+    parsedImportEntries.forEach(item => {
+      const id = item.id || Date.now().toString() + Math.random().toString(36).substr(2, 5);
+      entryMap.set(id, {
+        id,
+        type: item.type || '言语理解',
+        subtype: item.subtype || '',
+        reason: item.reason || '',
+        rule: item.rule || '',
+        date: item.date || new Date().toISOString()
+      });
+    });
+    entries = Array.from(entryMap.values());
+  }
+  
+  saveAll();
+  closeImportModal();
+  weekOffset = 0;
+  render();
+  showToast('导入成功，当前累计共 ' + entries.length + ' 条记录');
 }
 
 function loadEntries() {
@@ -655,31 +1259,39 @@ function render() {
   document.getElementById('count-panduan').textContent = typeCounts['判断推理'] || 0;
   document.getElementById('count-zicheng').textContent = typeCounts['资料分析'] || 0;
   const topType = Object.entries(typeCounts).sort((a,b) => b[1]-a[1])[0];
-  document.getElementById('stat-top').textContent = topType ? topType[0] : '—';
+  document.getElementById('stat-top').textContent = topType ? topType[0] : '-';
 
   const list = document.getElementById('entry-list');
   if (filtered.length === 0) {
-    const label = activeFilter === 'all' ? '' : '「' + activeFilter + '」的';
-    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div>这周没有' + label + '错题记录</div>';
+    const label = activeFilter === 'all' ? '' : '\u300C' + activeFilter + '\u300D\u7684';
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="color:var(--text-faint)"><rect x="4" y="2" width="16" height="20" rx="2" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="2" width="4" height="20" fill="currentColor" fill-opacity="0.08"/><line x1="11" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.3"/><line x1="11" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.3"/><line x1="11" y1="16" x2="15" y2="16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.3"/></svg>
+        </div>
+        <div class="empty-text">这周没有${label}错题记录</div>
+      </div>`;
     return;
   }
-  list.innerHTML = filtered.slice().reverse().map(e => `
-    <div class="entry-card">
+  list.innerHTML = filtered.slice().reverse().map((e, i) => `
+    <div class="entry-card" style="animation-delay:${i * 0.04}s">
       <div class="entry-card-top">
         <span class="type-dot ${dotClass(e.type)}"></span>
         <span class="type-badge ${typeClass(e.type)}">${e.type}</span>
-        ${e.subtype ? `<span style="font-size:11px;color:var(--text-tertiary);background:var(--surface2);padding:2px 8px;border-radius:10px;">${e.subtype}</span>` : ''}
+        ${e.subtype ? `<span class="subtype-badge">${e.subtype}</span>` : ''}
         <span class="entry-date">${fmtDate(e.date)}</span>
-        <button class="entry-del" onclick="deleteEntry('${e.id}')" aria-label="删除">×</button>
+        <button class="entry-del" onclick="deleteEntry('${e.id}')" aria-label="删除">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.8"/><path d="M5 6l1.5 14a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2L19 6" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><line x1="10" y1="10" x2="10" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="10" x2="14" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
       </div>
       <div class="entry-body">
         <div class="entry-section">
           <div class="entry-section-label">错误原因</div>
-          <div class="entry-section-val">${e.reason || '—'}</div>
+          <div class="entry-section-val">${e.reason || '-'}</div>
         </div>
         <div class="entry-section">
           <div class="entry-section-label">正确规律</div>
-          <div class="entry-section-val rule">${e.rule || '—'}</div>
+          <div class="entry-section-val rule">${e.rule || '-'}</div>
         </div>
       </div>
     </div>
@@ -707,6 +1319,7 @@ function openModal() {
   document.getElementById('f-rule').value = '';
   document.getElementById('f-subtype').value = '';
   document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('f-subtype').focus(), 100);
 }
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
@@ -715,34 +1328,45 @@ function saveEntry() {
   const reason = document.getElementById('f-reason').value.trim();
   const rule = document.getElementById('f-rule').value.trim();
   const subtype = document.getElementById('f-subtype').value.trim();
-  if (!reason && !rule) return;
+  if (!reason && !rule) { showToast('请至少填写一项内容'); return; }
   const entry = { id: Date.now().toString(), type: selectedType, subtype, reason, rule, date: new Date().toISOString() };
   entries.push(entry);
   saveAll();
   closeModal();
   weekOffset = 0;
   render();
+  showToast('已添加 1 条错题记录');
 }
 function deleteEntry(id) {
   entries = entries.filter(e => e.id !== id);
   saveAll();
   render();
+  showToast('已删除记录');
 }
+
+// Click backdrop to close
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('import-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeImportModal();
+});
+
 document.addEventListener('keydown', function(e) {
-  // N 键打开弹窗（不在输入框内时）
-  if (e.key === 'n' && document.activeElement.tagName !== 'TEXTAREA') {
+  const isInput = ['TEXTAREA', 'INPUT'].includes(document.activeElement.tagName);
+  if (e.key === 'n' && !isInput) {
+    e.preventDefault();
     openModal();
   }
-  // Esc 关闭弹窗
   if (e.key === 'Escape') {
     closeModal();
+    closeImportModal();
   }
-  // Ctrl+Enter 保存
   if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
     saveEntry();
   }
 });
-
 
 loadEntries();
 </script>
