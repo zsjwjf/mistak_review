@@ -1048,34 +1048,58 @@ input[type="text"]::placeholder, textarea::placeholder {
 
 <script>
 const STORAGE_KEY = 'gk-wrong-entries-v1';
+const PENDING_SYNC_KEY = 'gk-pending-sync-v1'; // 待同步标记
 
 const WORKER_URL = 'https://wrong-questions-api.lyon000205.workers.dev';
 
+function markPendingSync() {
+  localStorage.setItem(PENDING_SYNC_KEY, 'true');
+}
+function clearPendingSync() {
+  localStorage.removeItem(PENDING_SYNC_KEY);
+}
+function hasPendingSync() {
+  return localStorage.getItem(PENDING_SYNC_KEY) === 'true';
+}
+
 async function syncToCloud(entriesData) {
   try {
-    await fetch(WORKER_URL + '/entries', {
+    const res = await fetch(WORKER_URL + '/entries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(entriesData)
     });
+    if (!res.ok) throw new Error('sync failed');
+    clearPendingSync(); // 同步成功，清除标记
   } catch (e) {
-    showToast('云端同步失败，数据已保存本地');
+    markPendingSync(); // 同步失败，标记待同步
+    showToast('云端同步失败，数据已保存本地，将在下次启动时重试');
   }
 }
 
 async function loadFromCloud() {
   try {
+    // 如果本地有未同步的变更，优先将本地数据推送到云端
+    if (hasPendingSync()) {
+      await syncToCloud(entries);
+      if (!hasPendingSync()) { // 推送成功（syncToCloud内会clearPendingSync）
+        showToast('离线数据已重新同步到云端 ✓');
+      }
+      return; // 不再用云端数据覆盖本地
+    }
+
+    // 无待同步，正常从云端拉取
     const res = await fetch(WORKER_URL + '/entries');
     if (!res.ok) throw new Error();
     const data = await res.json();
+
     if (data.length === 0 && entries.length > 0) {
-      // 云端为空但本地有数据，将本地数据上传到云端
       await syncToCloud(entries);
       showToast('本地数据已自动同步到云端');
     } else if (data.length > 0) {
-      // 云端有数据，以云端为准
       entries = data;
       saveAll();
+      render();
     }
   } catch (e) {
     // 云端读取失败，使用本地数据
@@ -1372,14 +1396,18 @@ function saveEntry() {
   weekOffset = 0;
   render();
   showToast('已添加，同步中…');
-  syncToCloud(entries).then(() => showToast('已添加并同步成功'));
+  syncToCloud(entries).then(() => {
+    if (!hasPendingSync()) showToast('已添加并同步成功 ✓');
+  });
 }
 function deleteEntry(id) {
   entries = entries.filter(e => e.id !== id);
   saveAll();
   render();
   showToast('已删除，同步中…');
-  syncToCloud(entries).then(() => showToast('已删除并同步成功'));
+  syncToCloud(entries).then(() => {
+    if (!hasPendingSync()) showToast('已删除并同步成功 ✓');
+  });
 }
 
 // Click backdrop to close
