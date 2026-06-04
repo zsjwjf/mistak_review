@@ -928,7 +928,7 @@ input[type="text"]::placeholder, textarea::placeholder {
         <span class="kbd">N</span>
       </button>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-        <button class="sidebar-btn" onclick="exportData()" id="export-btn" style="padding: 10px 6px;">
+        <button class="sidebar-btn" onclick="openExportModal()" id="export-btn" style="padding: 10px 6px;">
           <span class="sidebar-btn-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="18" height="8" rx="2" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><polyline points="8 8 12 3 16 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </span>
@@ -1046,6 +1046,47 @@ input[type="text"]::placeholder, textarea::placeholder {
   </div>
 </div>
 
+<!-- Export Modal -->
+<div class="modal-backdrop" id="export-modal">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-icon" style="background: var(--blue-bg); border-color: rgba(59,130,246,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="18" height="8" rx="2" fill="var(--blue-bg)" stroke="var(--blue-text)" stroke-width="1.5"/><polyline points="8 8 12 3 16 8" fill="none" stroke="var(--blue-text)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="14" stroke="var(--blue-text)" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="modal-title">导出错题数据</div>
+      <button class="modal-close" onclick="closeExportModal()" aria-label="关闭">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.06"/><line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">选择时间范围</div>
+      <div class="type-selector" style="grid-template-columns: 1fr 1fr;">
+        <button class="type-opt export-opt selected" data-val="this_week" onclick="selectExportRange(this)">
+          本周
+        </button>
+        <button class="type-opt export-opt" data-val="last_week" onclick="selectExportRange(this)">
+          上周
+        </button>
+        <button class="type-opt export-opt" data-val="this_month" onclick="selectExportRange(this)">
+          本月
+        </button>
+        <button class="type-opt export-opt" data-val="last_month" onclick="selectExportRange(this)">
+          上月
+        </button>
+        <button class="type-opt export-opt" data-val="all" onclick="selectExportRange(this)" style="grid-column: span 2; justify-content: center;">
+          全部时间
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top: 24px;">
+      <button class="btn-cancel" onclick="closeExportModal()">取消</button>
+      <button class="btn-save" onclick="confirmExport()" style="background: var(--blue-text); border-color: rgba(29,78,216,0.2);">确认导出</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'gk-wrong-entries-v1';
 const PENDING_SYNC_KEY = 'gk-pending-sync-v1'; // 待同步标记
@@ -1159,15 +1200,84 @@ function showToast(msg) {
   setTimeout(() => { el.remove(); }, 2100);
 }
 
-function exportData() {
+let selectedExportRange = 'this_week';
+
+function openExportModal() {
+  document.getElementById('export-modal').classList.add('open');
+}
+
+function closeExportModal() {
+  document.getElementById('export-modal').classList.remove('open');
+}
+
+function selectExportRange(el) {
+  selectedExportRange = el.dataset.val;
+  document.querySelectorAll('.export-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function getExportRange(type) {
+  const now = new Date();
+  let start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+  
+  if (type === 'this_week') {
+    const day = start.getDay() || 7;
+    start.setDate(start.getDate() - day + 1);
+    end = new Date(start);
+    end.setDate(end.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+  } else if (type === 'last_week') {
+    const day = start.getDay() || 7;
+    start.setDate(start.getDate() - day + 1 - 7);
+    end = new Date(start);
+    end.setDate(end.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+  } else if (type === 'this_month') {
+    start.setDate(1);
+    end = new Date(start.getFullYear(), start.getMonth() + 1, 0, 23, 59, 59, 999);
+  } else if (type === 'last_month') {
+    start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    end = new Date(start.getFullYear(), start.getMonth() + 1, 0, 23, 59, 59, 999);
+  } else if (type === 'all') {
+    return null;
+  }
+  return { start, end };
+}
+
+function confirmExport() {
   if (entries.length === 0) { showToast('暂无错题数据'); return; }
-  const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+  
+  let exportData = entries;
+  const range = getExportRange(selectedExportRange);
+  
+  if (range) {
+    exportData = entries.filter(e => {
+      const d = new Date(e.date);
+      return d >= range.start && d <= range.end;
+    });
+  }
+  
+  if (exportData.length === 0) {
+    showToast('该时间范围内暂无错题数据');
+    return;
+  }
+  
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = '错题本_' + new Date().toISOString().slice(0,10) + '.json';
+  
+  let rangeLabel = '全部';
+  if (selectedExportRange === 'this_week') rangeLabel = '本周';
+  if (selectedExportRange === 'last_week') rangeLabel = '上周';
+  if (selectedExportRange === 'this_month') rangeLabel = '本月';
+  if (selectedExportRange === 'last_month') rangeLabel = '上月';
+  
+  a.download = `错题本_${rangeLabel}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
-  showToast('已导出 ' + entries.length + ' 条记录');
+  showToast('已导出 ' + exportData.length + ' 条记录');
+  closeExportModal();
 }
 
 let parsedImportEntries = [];
@@ -1417,6 +1527,9 @@ document.getElementById('modal').addEventListener('click', function(e) {
 document.getElementById('import-modal').addEventListener('click', function(e) {
   if (e.target === this) closeImportModal();
 });
+document.getElementById('export-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeExportModal();
+});
 
 document.addEventListener('keydown', function(e) {
   const isInput = ['TEXTAREA', 'INPUT'].includes(document.activeElement.tagName);
@@ -1427,6 +1540,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeModal();
     closeImportModal();
+    closeExportModal();
   }
   if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
     e.preventDefault();
